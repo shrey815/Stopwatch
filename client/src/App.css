@@ -12,9 +12,16 @@
   --dark: #1F2937;
   --gray: #6B7280;
   --light-gray: #F3F4F6;
-  --white: #FFFFFF;
+  --white: rgba(255, 255, 255, 0.85); /* Glassmorphism */
   --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  --shadow-lg: 0 10px 25px rgba(0, 0, 0, 0.15);
+  --shadow-lg: 0 10px 25px rgba(0, 0, 0, 0.2);
+}
+
+body.dark-mode {
+  --dark: #FFFFFF;
+  --gray: #D1D5DB;
+  --light-gray: rgba(31, 41, 55, 0.4);
+  --white: rgba(17, 24, 39, 0.85);
 }
 
 body {
@@ -23,9 +30,18 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background-image: url('./background.png');
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  background-repeat: no-repeat;
   min-height: 100vh;
   color: var(--dark);
+  transition: all 0.3s ease;
+}
+
+body.dark-mode {
+  background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('./background.png');
 }
 
 .App {
@@ -36,12 +52,15 @@ body {
 
 /* Navbar */
 .navbar {
-  background: rgba(255, 255, 255, 0.95);
-  backdrop-filter: blur(10px);
+  background: var(--white);
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
   box-shadow: var(--shadow);
   position: sticky;
   top: 0;
   z-index: 100;
+  transition: background 0.3s ease, border-color 0.3s ease;
+  border-bottom: 1px solid rgba(255,255,255,0.1);
 }
 
 .navbar-container {
@@ -58,6 +77,21 @@ body {
   font-weight: bold;
   color: var(--primary-color);
   text-decoration: none;
+}
+
+.theme-toggle-btn {
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  padding: 0.5rem;
+  border-radius: 50%;
+  transition: transform 0.3s ease, background 0.3s ease;
+}
+
+.theme-toggle-btn:hover {
+  background: rgba(128, 128, 128, 0.2);
+  transform: scale(1.1);
 }
 
 .navbar-menu {
